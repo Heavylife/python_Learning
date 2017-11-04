@@ -20,8 +20,14 @@ for image,price,title,review,star in zip(images,prices,titles,reviews,stars):
 	}
 	# print(data)
 	info.append(data)
+	# print(info)
 # 统计大于3星，评分数大于18的
+
+count = 0
 for i in info:
-	if int(i['star']) > 3 and int(i['review'][:2])> 18: # 评分人数大于18，星级大于3
+	str = i['review']
+	str_list = str.split()
+	# len(str_list[0]) 取出review中的评论人数
+	if int(i['star']) > 3 and int(i['review'][:len(str_list[0])])> 18: # 评分人数大于18，星级大于3
 		print(i['title'],i['price'])
 
