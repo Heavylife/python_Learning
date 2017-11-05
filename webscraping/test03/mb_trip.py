@@ -11,7 +11,14 @@ url = 'https://www.tripadvisor.cn/Attractions-g60763-Activities-New_York_City_Ne
 web_data = requests.get(url,headers=headers)
 soup = BeautifulSoup(web_data.text,'lxml')
 
-titles = soup.select('listing whiteList divider > div.container.containerLLR > div.title.titleLLR > div')
-imgs = soup.select('div.thumb thumbLLR soThumb > img')
-print(titles,imgs)
+titles = soup.find_all('div',class_='listing_title')
+imgs = soup.find_all('img',class_='photo_image',width = '180')
+cates = soup.find_all('div',class_='p13n_reasoning_v2')
 
+for title,img,cate in zip(titles,imgs,cates):
+	data = {
+		'title':title.get_text().strip(),
+		'img':img.get('src'),
+		'cate':list(cate.stripped_strings),
+	}
+	print(data)

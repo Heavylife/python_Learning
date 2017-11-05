@@ -39,7 +39,7 @@ def get_favs(url,data=None):
 	if data == None:
 		for title,image,cate in zip(titles,images,cates):
 			data = {
-				'title':title.get_text(),
+				'title':title.get_text().strip(),
 				'image':image.get('src'),
 				'cate':list(cate.stripped_strings)
 			}
