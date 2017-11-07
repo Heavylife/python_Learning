@@ -3,7 +3,9 @@ import urllib.request,time,requests
 
 url = 'http://jandan.net/ooxx/page-'
 
+
 def get_data(url):
+	count = 0
 	headers = {
 		# 由于网站有反爬，所以需要这个参数，不然获取不到网页信息
 		# 伪装成是人在浏览
@@ -22,11 +24,12 @@ def get_data(url):
 
 	for item in download_links:
 		urllib.request.urlretrieve(item,download_file+item[-8:])
-		print('Done')
+		count +=1
+		print('Done {} pic'.format(count))
 
 def get_datas(start,end): # 获取所有页面的url
 	for i in range(start,end): # 需要爬取的页面
 		urls = url+str(i)
 		get_data(urls)
 		time.sleep(2) # 间隔2S 防止被封
-get_datas(24,100)
+get_datas(50,80)

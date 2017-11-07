@@ -13,19 +13,21 @@ def get_onpage(url):
 
 	class_strs = soup.select('span:nth-of-type(4) > a')  # 类别
 	titles = soup.select('div.box_left_top > h1')
-	prices = soup.select('div.price_li > span > i')
-	addresses = soup.select('div.palce_li > span > i')
+	prices = soup.select('div.price_li i')
+	addresses = soup.select('div.palce_li i')
+	reviewers = soup.select('span.look_time')
 
-	for class_str,title,price,address in zip(class_strs,titles,prices,addresses):
+	for class_str,title,price,address,reviewer in zip(class_strs,titles,prices,addresses,reviewers):
 		data = {
 			'class_str':class_str.get_text(),
 			'title':title.get_text(),
 			'price':price.get_text(),
 			'address':address.get_text(),
+			'reviewer':reviewer.get_text(),
 		}
 		print(data)
 def get_pages():
-	# infolist > div:nth-child(5) > table > tbody > tr:nth-child(18) > td.img > a
+
 	urls = 'http://bj.58.com/pbdn/?PGTID=0d305a36-0000-1ddd-eb14-53c5a0a1a030&ClickID=1'
 	links = []
 	wb_data = requests.get(urls,headers=headers)
@@ -43,6 +45,7 @@ def get_pages():
 	for i in links:
 		url = 'http://zhuanzhuan.58.com/detail/'+str(i)
 		get_onpage(url)
+		time.sleep(3)
 get_pages()
 
 
