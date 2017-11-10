@@ -32,4 +32,4 @@ def get_datas(start,end): # 获取所有页面的url
 		urls = url+str(i)
 		get_data(urls)
 		time.sleep(2) # 间隔2S 防止被封
-get_datas(50,80)
+get_datas(80,90)
